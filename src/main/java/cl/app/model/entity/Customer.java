@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name="customers")
@@ -22,12 +24,15 @@ public class Customer implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotEmpty(message = "cannot be empty")
 	@Column(nullable=false)
 	private String name;
 	
 	@Column(nullable=false)
 	private String lastname;
 	
+	@NotEmpty(message = "cannot be empty")
+	@Email(message = "must be valid")
 	@Column(nullable=false, unique=true)
 	private String email;
 	
