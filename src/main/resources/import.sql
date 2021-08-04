@@ -9,3 +9,13 @@ INSERT INTO customers (name, lastname, email, create_at, update_at) VALUES('Dr. 
 INSERT INTO customers (name, lastname, email, create_at, update_at) VALUES('Magma', 'Lee', 'magma.lee@email.com', '2018-03-04', '2018-03-04');
 INSERT INTO customers (name, lastname, email, create_at, update_at) VALUES('Tornado', 'Roe', 'tornado.roe@email.com', '2018-03-05', '2018-03-05');
 INSERT INTO customers (name, lastname, email, create_at, update_at) VALUES('Jade', 'Doe', 'jane.doe@email.com', '2018-03-06', '2018-03-06');
+
+INSERT INTO `users` (username, password) VALUES ('user','$2a$10$C3Uln5uqnzx/GswADURJGOIdBqYrly9731fnwKDaUdBkt/M3qvtLq');
+INSERT INTO `users` (username, password) VALUES ('admin','$2a$10$RmdEsvEfhI7Rcm9f/uZXPebZVCcPC7ZXZwV51efAvMAp1rIaRAfPK');
+
+INSERT INTO `roles` (name) VALUES ('ROLE_USER');
+INSERT INTO `roles` (name) VALUES ('ROLE_ADMIN');
+
+INSERT INTO `user_role` (user_id, role_id) VALUES (1, 1);
+INSERT INTO `user_role` (user_id, role_id) VALUES (2, 2);
+INSERT INTO `user_role` (user_id, role_id) VALUES (2, 1);
