@@ -10,8 +10,11 @@ INSERT INTO customers (name, lastname, email, create_at, update_at) VALUES('Magm
 INSERT INTO customers (name, lastname, email, create_at, update_at) VALUES('Tornado', 'Roe', 'tornado.roe@email.com', '2018-03-05', '2018-03-05');
 INSERT INTO customers (name, lastname, email, create_at, update_at) VALUES('Jade', 'Doe', 'jane.doe@email.com', '2018-03-06', '2018-03-06');
 
-INSERT INTO `users` (username, password) VALUES ('user','$2a$10$C3Uln5uqnzx/GswADURJGOIdBqYrly9731fnwKDaUdBkt/M3qvtLq');
-INSERT INTO `users` (username, password) VALUES ('admin','$2a$10$RmdEsvEfhI7Rcm9f/uZXPebZVCcPC7ZXZwV51efAvMAp1rIaRAfPK');
+
+
+
+INSERT INTO `users` (username, password, account_non_expired, account_non_locked, credentials_non_expired, email, enabled, last_name, name) VALUES ('user','$2a$10$C3Uln5uqnzx/GswADURJGOIdBqYrly9731fnwKDaUdBkt/M3qvtLq', true, true, true, 'user@email.com', true, 'Last name user','Name user');
+INSERT INTO `users` (username, password, account_non_expired, account_non_locked, credentials_non_expired, email, enabled, last_name, name) VALUES ('admin','$2a$10$RmdEsvEfhI7Rcm9f/uZXPebZVCcPC7ZXZwV51efAvMAp1rIaRAfPK', true, true, true, 'admin@email.com', true, 'Last name admin','Name admin');
 
 INSERT INTO `roles` (name) VALUES ('ROLE_USER');
 INSERT INTO `roles` (name) VALUES ('ROLE_ADMIN');
