@@ -24,7 +24,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "users")
-public class User implements Serializable, UserDetails{
+public class User implements Serializable, UserDetails {
 
 	private static final long serialVersionUID = 1L;
 
@@ -37,22 +37,37 @@ public class User implements Serializable, UserDetails{
 
 	@Column(length = 60)
 	private String password;
+	
+	@Column(nullable = false)
+	private String name;
+	
+	private String lastName;
+
+	@Column(unique = true)
+	private String email;
+
+	private boolean accountNonExpired;
+
+	private boolean credentialsNonExpired;
+
+	private boolean accountNonLocked;
+
+	private boolean enabled;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(name="user_role", joinColumns= @JoinColumn(name="user_id"),
-	inverseJoinColumns=@JoinColumn(name="role_id"),
-	uniqueConstraints= {@UniqueConstraint(columnNames= {"user_id", "role_id"})})
+	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"), uniqueConstraints = {
+			@UniqueConstraint(columnNames = { "user_id", "role_id" }) })
 	private List<Role> roles;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		 List<GrantedAuthority> authorities  = new ArrayList<GrantedAuthority>();
-		 for (Role role : this.getRoles()) {
-			 authorities.add(new SimpleGrantedAuthority(role.getName()));
-		    } 
-	     return authorities ;
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		for (Role role : this.getRoles()) {
+			authorities.add(new SimpleGrantedAuthority(role.getName()));
+		}
+		return authorities;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -77,6 +92,30 @@ public class User implements Serializable, UserDetails{
 		this.password = password;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@Override
 	public String getPassword() {
 		return this.password;
@@ -87,24 +126,40 @@ public class User implements Serializable, UserDetails{
 		return this.username;
 	}
 
+	public void setAccountNonExpired(boolean accountNonExpired) {
+		this.accountNonExpired = accountNonExpired;
+	}
+
 	@Override
 	public boolean isAccountNonExpired() {
-		return true;
+		return this.accountNonExpired;
+	}
+
+	public void setAccountNonLocked(boolean accountNonLocked) {
+		this.accountNonLocked = accountNonLocked;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		return true;
+		return this.accountNonLocked;
+	}
+
+	public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+		this.credentialsNonExpired = credentialsNonExpired;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		return true;
+		return this.credentialsNonExpired;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	@Override
 	public boolean isEnabled() {
-		return true;
+		return this.enabled;
 	}
-	
+
 }
