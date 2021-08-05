@@ -24,37 +24,35 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	private static final String IMPLICIT = "implicit";
 	private static final String SCOPE_READ = "read";
 	private static final String SCOPE_WRITE = "write";
-	private  static final String TRUST = "trust";
+	private static final String TRUST = "trust";
 
-	private static final int ACCESS_TOKEN_VALIDITY_SECONDS = 1*60*60; //3600
-	private static final int FREFRESH_TOKEN_VALIDITY_SECONDS = 6*60*60; //21600
+	private static final int ACCESS_TOKEN_VALIDITY_SECONDS = 1 * 60 * 60; // 3600
+	private static final int FREFRESH_TOKEN_VALIDITY_SECONDS = 6 * 60 * 60; // 21600
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private AccessTokenConverter accessTokenConverter;
-	
-    @Autowired
-    private TokenStore tokenStore;
+	@Autowired
+	private AccessTokenConverter accessTokenConverter;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    
+	@Autowired
+	private TokenStore tokenStore;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
 	@Override
 	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-		security
-				.tokenKeyAccess("permitAll()")
-				.checkTokenAccess("isAuthenticated()");
+		security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
 	}
-    
+
 	@Override
 	public void configure(ClientDetailsServiceConfigurer configurer) throws Exception {
 		configurer
 				.inMemory()
 				.withClient(CLIEN_ID)
 				.secret(this.passwordEncoder.encode(CLIENT_SECRET))
-				.authorizedGrantTypes(GRANT_TYPE_PASSWORD, AUTHORIZATION_CODE, REFRESH_TOKEN, IMPLICIT )
+				.authorizedGrantTypes(GRANT_TYPE_PASSWORD, AUTHORIZATION_CODE, REFRESH_TOKEN, IMPLICIT)
 				.scopes(SCOPE_READ, SCOPE_WRITE, TRUST)
 				.accessTokenValiditySeconds(ACCESS_TOKEN_VALIDITY_SECONDS)
 				.refreshTokenValiditySeconds(FREFRESH_TOKEN_VALIDITY_SECONDS);
@@ -62,10 +60,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-		endpoints
-				.authenticationManager(this.authenticationManager)
-				.tokenStore(this.tokenStore)
-                .accessTokenConverter(this.accessTokenConverter);
+		endpoints.authenticationManager(this.authenticationManager).tokenStore(this.tokenStore)
+				.accessTokenConverter(this.accessTokenConverter);
 	}
-	
+
 }
